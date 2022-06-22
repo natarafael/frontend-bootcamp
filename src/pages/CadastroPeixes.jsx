@@ -1,20 +1,33 @@
 import { Button } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Fishes } from "../api/api";
+import { GetAllFishes } from "../api/api";
+import FishCard from "../compents/FishCard";
 
 const CadastroPeixes = () => {
-  const handleObterPeixes = async () => {
-    var response = await Fishes();
+  const [fishes, setFishes] = useState();
+  const [show, setShow] = useState(false);
 
-    console.log(response.data);
+  const handleGetAllFishes = async () => {
+    var response = await GetAllFishes();
+    setFishes(response.data);
+    setShow(true);
+    console.log(fishes);
   };
+
+  useEffect(() => {
+    const fetchFishes = async () => {
+      var response = await GetAllFishes();
+      setFishes(response.data);
+    };
+    fetchFishes();
+  }, []);
+
+  console.log(fishes);
 
   return (
     <div>
-      <Button variant="contained" onClick={handleObterPeixes}>
-        Obter peixes
-      </Button>
+      <h4>{fishes[1].pittag}</h4>
     </div>
   );
 };
