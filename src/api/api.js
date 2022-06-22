@@ -38,3 +38,32 @@ export function GetAllFishByCaptureLocation(captureLocation) {
 export function GetAllFishByPittag(pittag) {
   return api.get(`fishes/pittags/${pittag}`);
 }
+
+//ANTENA
+export function GetAntennaByid(id) {
+  return api.get(`antennas/id/${id}`);
+}
+
+export function GetAllAntennas() {
+  return api.get("antennas");
+}
+
+//PASSAGENS
+
+export function GetAllPasses() {
+  return api.get("passes");
+}
+
+export function GetPassesByid(id) {
+  return api.get(`passes/id/${id}`);
+}
+
+//STATUS ANTENNA 
+
+export function GetAllStatusAntenna() {
+  return api.get("status");
+}
+
+export function GetStatusAntennaByid(id) {
+  return api.get(`status/id/${id}`);
+}
