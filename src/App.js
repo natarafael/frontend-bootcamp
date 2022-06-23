@@ -1,11 +1,13 @@
 import React from "react";
 import "./App.css";
-import CadastroPeixes from "./pages/CadastroPeixes";
+import ButtonAppBar from "./compents/ButtonAppBar";
+import Fishes from "./pages/Fishes";
 
 function App() {
   return (
     <>
-      <CadastroPeixes />
+        <ButtonAppBar></ButtonAppBar>
+        <Fishes/>
     </>
   );
 }
