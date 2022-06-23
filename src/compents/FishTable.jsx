@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {useEffect, useState} from 'react';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -7,6 +8,8 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
+import {CircularProgress} from "@mui/material";
+import {GetAllFishes} from "../api/api";
 
 const columns = [
     { id: 'id', label: 'Id', minWidth: 50, align: 'right' },
@@ -56,10 +59,30 @@ const columns = [
     },
 ];
 
-export default function StickyHeadTable({fishes}) {
+export default function FishTable() {
 
-    const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(10);
+    const [page, setPage] = useState(0);
+    const [fishes, setFishes] = useState([]);
+    const [rowsPerPage, setRowsPerPage] = useState(10);
+    const [loading, setLoading] = useState(true);
+
+
+    const FetchFishes = async () => {
+        setLoading(true);
+        try {
+            var responseFishes = await GetAllFishes();
+            setFishes(responseFishes.data);
+            setLoading(false)
+        } catch {
+            console.log("erro ao buscar dados")
+        }
+    };
+
+    console.log(fishes)
+
+    useEffect(() => {
+        FetchFishes();
+    }, []);
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
@@ -88,7 +111,7 @@ export default function StickyHeadTable({fishes}) {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {fishes
+                        { loading? <CircularProgress />  : fishes
                             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                             .map((fish) => {
                                 return (
