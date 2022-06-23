@@ -1,23 +1,24 @@
-import { Button } from "@mui/material";
-import axios from "axios";
+import { Button, TextField, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { GetAllFishes } from "../api/api";
-import FishCard from "../compents/FishCard";
 
 const CadastroPeixes = () => {
-  const [fishes, setFishes] = useState();
-  const handleGetAllFishes = async () => {
-    var response = await GetAllFishes();
-    setFishes(response.data);
-    console.log(response.data);
+  const [fishes, setFishes] = useState([]);
+
+  const FetchFishes = async () => {
+    var responseFishes = await GetAllFishes();
+    setFishes(responseFishes.data);
   };
+
+  useEffect(() => {
+    FetchFishes();
+  }, []);
 
   return (
     <div>
-      <Button variant="contained" onClick={handleGetAllFishes}>
-        Obter peixes
-      </Button>
-      {/* {show && <FishCard fishes={fishes} />} */}
+      {fishes.map((fish) => (
+        <Typography key={fish.id}>{fish.commonName}</Typography>
+      ))}
     </div>
   );
 };
