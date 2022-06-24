@@ -11,8 +11,16 @@ import LogoItaipu from '../assets/logoitaipu.png'
 export default function ButtonAppBar() {
     return (
         <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="static" color="inherit">
-                <Toolbar>
+            <AppBar position="static" color="inherit"
+                    style={{ width: "100%" }}
+            >
+                <Toolbar
+                    sx={{
+                        backgroundColor: "#caf0f8",
+                        display: "flex",
+                        justifyContent: "space-between",
+                    }}
+                >
                     <IconButton
                         size="large"
                         edge="start"

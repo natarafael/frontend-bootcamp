@@ -1,13 +1,16 @@
 import React from "react";
 import "./App.css";
 import ButtonAppBar from "./compents/ButtonAppBar";
-import Fishes from "./pages/Fishes";
+import {BrowserRouter} from "react-router-dom";
+import AppRoutes from "./routes/AppRoutes";
 
 function App() {
   return (
     <>
         <ButtonAppBar></ButtonAppBar>
-        <Fishes/>
+        <BrowserRouter>
+            <AppRoutes/>
+        </BrowserRouter>
     </>
   );
 }

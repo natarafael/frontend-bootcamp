@@ -10,6 +10,7 @@ import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import {CircularProgress} from "@mui/material";
 import {GetAllFishes} from "../api/api";
+import Box from "@mui/material/Box";
 
 const columns = [
     { id: 'id', label: 'Id', minWidth: 50, align: 'right' },
@@ -37,7 +38,10 @@ const columns = [
         label: 'Data de soltura',
         minWidth: 100,
         align: 'center',
-        format: (value) => value.toLocaleString('pt-BR')
+        format: (value) => {
+            const date = new Date(value)
+            return date.toLocaleString('pt-BR')
+        }
     },
     {
         id: 'releaseLocation',
@@ -56,6 +60,7 @@ const columns = [
         label: 'Recaptura',
         minWidth: 100,
         align: 'center',
+        format:(value) => value? 'Sim' : 'Não'
     },
 ];
 
@@ -64,7 +69,7 @@ export default function FishTable() {
     const [page, setPage] = useState(0);
     const [fishes, setFishes] = useState([]);
     const [rowsPerPage, setRowsPerPage] = useState(10);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
 
 
     const FetchFishes = async () => {
@@ -111,18 +116,20 @@ export default function FishTable() {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        { loading? <CircularProgress />  : fishes
+                        { loading ? (
+                            <Box p={4}>
+                                <CircularProgress variant="indeterminate"  />
+                            </Box>
+                        )  : fishes
                             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                            .map((fish) => {
+                            .map((fish, i) => {
                                 return (
-                                    <TableRow hover role="checkbox" tabIndex={-1} key={fish.id} >
+                                    <TableRow hover role="checkbox" tabIndex={-1} key={fish.id} sx={{...(i % 2 === 0 && { backgroundColor: "#caf0f8" })}}>
                                         {columns.map((column) => {
                                             const value = fish[column.id];
                                             return (
                                                 <TableCell key={column.id} align={column.align}>
-                                                    {column.format && typeof value === 'number'
-                                                        ? column.format(value)
-                                                        : value}
+                                                    {column.format ? column.format(value) : value}
                                                 </TableCell>
                                             );
                                         })}
