@@ -1,7 +1,7 @@
 import React from 'react'
 
 import {Route, Routes} from 'react-router-dom'
-import Fishes from "../pages/Fishes";
+import Fishes from "../pages/fish/Fishes";
 
 
 const AppRoutes = () => {
