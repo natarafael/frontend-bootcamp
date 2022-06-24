@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const api = axios.create({
-  baseURL: "http://localhost:3030/",
+  baseURL: "https://backend-piracema.herokuapp.com/",
   withCredentials: false,
 });
 
@@ -60,10 +60,10 @@ export function GetPassesByid(id) {
 
 //STATUS ANTENNA 
 
-export function GetAllStatusAntenna() {
+export function GetAllStatus() {
   return api.get("status");
 }
 
-export function GetStatusAntennaByid(id) {
+export function GetStatusByid(id) {
   return api.get(`status/id/${id}`);
 }

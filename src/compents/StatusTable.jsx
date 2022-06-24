@@ -14,16 +14,16 @@ import Box from "@mui/material/Box";
 
 const columns = [
     { id: 'id', label: 'Id', minWidth: 50, align: 'right' },
-    { id: 'observations', label: 'Observações', minWidth: 100, align: 'center' },
+    { id: 'observations', label: 'Nome da antena', minWidth: 100, align: 'center' },
     {
-        id: 'statusChangeDate',
-        label: 'Data de alteração de status',
+        id: 'antennaID',
+        label: 'Id da antena',
         minWidth: 100,
         align: 'center',
     },
     {
-        id: 'antennaID',
-        label: 'Id da antena',
+        id: 'statusChangeDate',
+        label: 'Data de alteração de status',
         minWidth: 100,
         align: 'center',
     },
@@ -116,3 +116,4 @@ export default function StatusTable() {
         </Paper>
     );
 }
+
