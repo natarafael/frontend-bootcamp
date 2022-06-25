@@ -14,6 +14,7 @@ import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import {AiOutlinePlus} from "react-icons/ai";
+import {useNavigate} from 'react-router';
 
 const columns = [
     
@@ -53,6 +54,7 @@ export default function AntennaTable() {
     const [antennas, setAntennas] = useState([]);
     const [rowsPerPage, setRowsPerPage] = useState(10);
     const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
 
 
     const FetchAntennas = async () => {
@@ -81,6 +83,10 @@ export default function AntennaTable() {
         setPage(0);
     };
 
+    const handleNavigate = () => {
+        navigate('/edit-fish');
+    }
+
     return (
         <Paper sx={{ width: '100%', overflow: 'hidden' }}>
             <Toolbar
@@ -99,8 +105,7 @@ export default function AntennaTable() {
                     Antenas Cadastradas
                 </Typography>
                 <Tooltip title="Cadastrar Antena">
-                    <IconButton>
-                        <AiOutlinePlus />
+                        <IconButton onClick={handleNavigate} >
                     </IconButton>
                 </Tooltip>
             </Toolbar>
