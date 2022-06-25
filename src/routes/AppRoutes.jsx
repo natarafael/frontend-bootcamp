@@ -5,15 +5,18 @@ import Fishes from "../pages/fish/Fishes";
 import Antennas from '../pages/antenna/Antennas';
 import Status from '../pages/status/Status';
 import Passes from '../pages/passes/Passes';
+import FishContainer from "../pages/fish/FishContainer";
 
 const AppRoutes = () => {
 
     return (
         <Routes>
+            <Route path='/'/>
             <Route path='/fishes' element={<Fishes />} />
             <Route path='/antennas' element={<Antennas />} />
             <Route path='/status' element={<Status />} />
             <Route path='/passes' element={<Passes />} />
+            <Route path='/edit-fish' element={<FishContainer />} />
         </Routes >
     )
 

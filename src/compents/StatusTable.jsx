@@ -8,24 +8,38 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
-import {CircularProgress} from "@mui/material";
+import {CircularProgress, Tooltip, Typography} from "@mui/material";
 import {GetAllStatus} from "../api/api";
 import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import IconButton from "@mui/material/IconButton";
+import {AiOutlinePlus} from "react-icons/ai";
 
 const columns = [
     { id: 'id', label: 'Id', minWidth: 50, align: 'right' },
     { id: 'observations', label: 'Nome da antena', minWidth: 100, align: 'center' },
     {
-        id: 'antennaID',
+        id: 'antennaIdentifier',
         label: 'Id da antena',
         minWidth: 100,
         align: 'center',
+    },
+    {
+        id: 'status',
+        label: 'Status',
+        minWidth: 100,
+        align: 'center',
+        format:(value) => value? 'Ativada' : 'Desativada'
     },
     {
         id: 'statusChangeDate',
         label: 'Data de alteração de status',
         minWidth: 100,
         align: 'center',
+        format: (value) => {
+            const date = new Date(value)
+            return value? date.toLocaleString('pt-BR') : ''
+        }
     },
 ];
 
@@ -39,13 +53,11 @@ export default function StatusTable() {
 
     const FetchStatus = async () => {
         setLoading(true);
-        try {
-            var responseStatus = await GetAllStatus();
-            setStatus(responseStatus.data);
-            setLoading(false)
-        } catch {
-            console.log("erro ao buscar dados")
-        }
+
+             await GetAllStatus().then(response => {
+                setStatus(response.data)
+                setLoading(false)
+            }).catch(error => {console.log(error)});
     };
 
     console.log(status)
@@ -65,6 +77,27 @@ export default function StatusTable() {
 
     return (
         <Paper sx={{ width: '100%', overflow: 'hidden' }}>
+            <Toolbar
+                sx={{
+                    pl: { sm: 2 },
+                    pr: { xs: 1, sm: 1 },
+                    margin:2,
+                }}
+            >
+                <Typography
+                    sx={{ flex: '1 1 100%' }}
+                    variant="h4"
+                    id="tableTitle"
+                    component="div"
+                >
+                    Status das Antenas Cadastradas
+                </Typography>
+                <Tooltip title="Cadastrar status antena">
+                    <IconButton>
+                        <AiOutlinePlus />
+                    </IconButton>
+                </Tooltip>
+            </Toolbar>
             <TableContainer sx={{ maxHeight: 440 }}>
                 <Table stickyHeader aria-label="sticky table">
                     <TableHead>

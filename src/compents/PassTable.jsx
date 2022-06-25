@@ -8,21 +8,30 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
-import {CircularProgress} from "@mui/material";
+import {CircularProgress, Tooltip, Typography} from "@mui/material";
 import {GetAllPasses} from "../api/api";
 import Box from "@mui/material/Box";
+import IconButton from "@mui/material/IconButton";
+import {AiOutlinePlus} from "react-icons/ai";
+import Toolbar from "@mui/material/Toolbar";
 
 const columns = [
     { id: 'id', label: 'Id', minWidth: 50, align: 'right' },
-    { id: 'registryDate', label: 'Data do registro da passagem', minWidth: 100, align: 'center' },
+    { id: 'registryDate',
+        label: 'Data do registro da passagem',
+        minWidth: 100, align: 'center',
+        format: (value) => {
+            const date = new Date(value)
+            return value? date.toLocaleString('pt-BR') : ''
+        }},
     {
-        id: 'fishId.fish',
+        id: 'fishIdentifier',
         label: 'Id do peixe',
         minWidth: 100,
         align: 'center',
     },
     {
-        id: 'antennaId.antenna',
+        id: 'antennaIdentifier',
         label: 'Id da antena',
         minWidth: 100,
         align: 'center',
@@ -65,6 +74,27 @@ export default function PassTable() {
 
     return (
         <Paper sx={{ width: '100%', overflow: 'hidden' }}>
+            <Toolbar
+                sx={{
+                    pl: { sm: 2 },
+                    pr: { xs: 1, sm: 1 },
+                    margin:2,
+                }}
+            >
+                <Typography
+                    sx={{ flex: '1 1 100%' }}
+                    variant="h4"
+                    id="tableTitle"
+                    component="div"
+                >
+                    Passagens Cadastradas
+                </Typography>
+                <Tooltip title="Cadastrar passagem">
+                    <IconButton>
+                        <AiOutlinePlus />
+                    </IconButton>
+                </Tooltip>
+            </Toolbar>
             <TableContainer sx={{ maxHeight: 440 }}>
                 <Table stickyHeader aria-label="sticky table">
                     <TableHead>
@@ -92,7 +122,7 @@ export default function PassTable() {
                                     <TableRow hover role="checkbox" tabIndex={-1} key={pass.id} sx={{...(i % 2 === 0 && { backgroundColor: "#caf0f8" })}}>
                                         {columns.map((column) => {
                                             const value = pass[column.id];
-                                            return (
+                                              return (
                                                 <TableCell key={column.id} align={column.align}>
                                                     {column.format ? column.format(value) : value}
                                                 </TableCell>

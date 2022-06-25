@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const api = axios.create({
-  baseURL: "https://backend-piracema.herokuapp.com/",
+  baseURL: "http://localhost:3030/",
   withCredentials: false,
 });
 
@@ -37,6 +37,10 @@ export function GetAllFishByCaptureLocation(captureLocation) {
 
 export function GetAllFishByPittag(pittag) {
   return api.get(`fishes/pittags/${pittag}`);
+}
+export function NewFish(fish) {
+  console.log(fish);
+  return api.post("fishes", fish);
 }
 
 //ANTENA

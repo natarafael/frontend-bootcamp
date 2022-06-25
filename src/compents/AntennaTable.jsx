@@ -8,9 +8,12 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
-import {CircularProgress} from "@mui/material";
+import {CircularProgress, Tooltip, Typography} from "@mui/material";
 import {GetAllAntennas} from "../api/api";
 import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import IconButton from "@mui/material/IconButton";
+import {AiOutlinePlus} from "react-icons/ai";
 
 const columns = [
     
@@ -27,12 +30,20 @@ const columns = [
         label: 'Data de instalação',
         minWidth: 100,
         align: 'center',
+        format: (value) => {
+            const date = new Date(value)
+            return value? date.toLocaleString('pt-BR') : ''
+        }
     },
     {
         id: 'uninstallDate',
         label: 'Data de desativação',
         minWidth: 100,
         align: 'center',
+        format: (value) => {
+            const date = new Date(value)
+            return value? date.toLocaleString('pt-BR'): ''
+        }
     },
 ];
 
@@ -72,6 +83,27 @@ export default function AntennaTable() {
 
     return (
         <Paper sx={{ width: '100%', overflow: 'hidden' }}>
+            <Toolbar
+                sx={{
+                    pl: { sm: 2 },
+                    pr: { xs: 1, sm: 1 },
+                    margin:2,
+                }}
+            >
+                <Typography
+                    sx={{ flex: '1 1 100%' }}
+                    variant="h4"
+                    id="tableTitle"
+                    component="div"
+                >
+                    Antenas Cadastradas
+                </Typography>
+                <Tooltip title="Cadastrar Antena">
+                    <IconButton>
+                        <AiOutlinePlus />
+                    </IconButton>
+                </Tooltip>
+            </Toolbar>
             <TableContainer sx={{ maxHeight: 440 }}>
                 <Table stickyHeader aria-label="sticky table">
                     <TableHead>

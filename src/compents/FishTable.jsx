@@ -8,9 +8,13 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
-import {CircularProgress} from "@mui/material";
+import {CircularProgress, Tooltip, Typography} from "@mui/material";
 import {GetAllFishes} from "../api/api";
 import Box from "@mui/material/Box";
+import {AiOutlinePlus} from "react-icons/ai";
+import IconButton from "@mui/material/IconButton";
+import Toolbar from "@mui/material/Toolbar";
+import {useNavigate} from 'react-router';
 
 const columns = [
     { id: 'id', label: 'Id', minWidth: 50, align: 'right' },
@@ -40,7 +44,7 @@ const columns = [
         align: 'center',
         format: (value) => {
             const date = new Date(value)
-            return date.toLocaleString('pt-BR')
+            return value? date.toLocaleString('pt-BR'): ''
         }
     },
     {
@@ -70,6 +74,7 @@ export default function FishTable() {
     const [fishes, setFishes] = useState([]);
     const [rowsPerPage, setRowsPerPage] = useState(10);
     const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
 
 
     const FetchFishes = async () => {
@@ -98,8 +103,34 @@ export default function FishTable() {
         setPage(0);
     };
 
+    const handleNavigate = () => {
+        navigate('/edit-fish');
+    }
+
     return (
         <Paper sx={{ width: '100%', overflow: 'hidden' }}>
+            <Toolbar
+                sx={{
+                    pl: { sm: 2 },
+                    pr: { xs: 1, sm: 1 },
+                    margin:2,
+                }}
+            >
+                    <Typography
+                        sx={{ flex: '1 1 100%' }}
+                        variant="h4"
+                        id="tableTitle"
+                        component="div"
+                    >
+                        Peixes Cadastrados
+                    </Typography>
+                    <Tooltip title="Cadastrar peixe">
+                        <IconButton onClick={handleNavigate} >
+                            <AiOutlinePlus />
+                        </IconButton>
+                    </Tooltip>
+
+            </Toolbar>
             <TableContainer sx={{ maxHeight: 440 }}>
                 <Table stickyHeader aria-label="sticky table">
                     <TableHead>

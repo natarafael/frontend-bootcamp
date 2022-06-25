@@ -1,15 +1,16 @@
 import React from "react";
 import "./App.css";
-import ButtonAppBar from "./compents/ButtonAppBar";
+import AppBarMenu from "./compents/AppBarMenu";
 import {BrowserRouter} from "react-router-dom";
-import AppRoutes from "./routes/AppRoutes";
+
+import "../src/styles/custom.scss";
 
 function App() {
+
   return (
     <>
-        <ButtonAppBar></ButtonAppBar>
         <BrowserRouter>
-            <AppRoutes/>
+            <AppBarMenu></AppBarMenu>
         </BrowserRouter>
     </>
   );
