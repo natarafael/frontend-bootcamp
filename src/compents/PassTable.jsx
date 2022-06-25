@@ -14,6 +14,7 @@ import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import {AiOutlinePlus} from "react-icons/ai";
 import Toolbar from "@mui/material/Toolbar";
+import {useNavigate} from 'react-router';
 
 const columns = [
     { id: 'id', label: 'Id', minWidth: 50, align: 'right' },
@@ -44,6 +45,7 @@ export default function PassTable() {
     const [passes, setPasses] = useState([]);
     const [rowsPerPage, setRowsPerPage] = useState(10);
     const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
 
 
     const FetchPasses = async () => {
@@ -72,6 +74,10 @@ export default function PassTable() {
         setPage(0);
     };
 
+    const handleNavigate = () => {
+            navigate('/edit-fish');
+        }
+
     return (
         <Paper sx={{ width: '100%', overflow: 'hidden' }}>
             <Toolbar
@@ -90,7 +96,7 @@ export default function PassTable() {
                     Passagens Cadastradas
                 </Typography>
                 <Tooltip title="Cadastrar passagem">
-                    <IconButton>
+                    <IconButton onClick={handleNavigate} >
                         <AiOutlinePlus />
                     </IconButton>
                 </Tooltip>
