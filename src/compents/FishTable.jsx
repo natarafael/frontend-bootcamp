@@ -77,21 +77,20 @@ export default function FishTable() {
     const navigate = useNavigate();
 
 
-    const FetchFishes = async () => {
+    const fetchFishes = async () => {
         setLoading(true);
-        try {
-            var responseFishes = await GetAllFishes();
-            setFishes(responseFishes.data);
-            setLoading(false)
-        } catch {
-            console.log("erro ao buscar dados")
-        }
+
+            await GetAllFishes().then(response => {
+                setFishes(response.data);
+                setLoading(false);
+            }).catch(error => {console.log(error)});
+
     };
 
     console.log(fishes)
 
     useEffect(() => {
-        FetchFishes();
+        fetchFishes();
     }, []);
 
     const handleChangePage = (event, newPage) => {
