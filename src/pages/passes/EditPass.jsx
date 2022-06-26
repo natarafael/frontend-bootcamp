@@ -4,6 +4,7 @@ import { Box, Button } from "@mui/material";
 import Form from "../../compents/hook-forms/Form";
 import { ControlledTextField } from "../../compents/hook-forms/TextFieldForm";
 import PassRegistrationSchema from "./PassRegistrationSchema";
+import { toast } from "react-toastify";
 
 const EditPass = () => {
   const initialValues = {
@@ -25,12 +26,12 @@ const EditPass = () => {
     await NewPass(formValues)
       .then((response) => {
         console.log(response.data);
-        //toast.success("Passagem cadastrado com sucesso");
+        toast.success("Passagem cadastrado com sucesso");
         methods.reset();
       })
       .catch((error) => {
         console.log(error);
-        //toast.error("Erro ao cadastrar passagem");
+        toast.error("Erro ao cadastrar passagem");
         methods.reset();
       });
   };
