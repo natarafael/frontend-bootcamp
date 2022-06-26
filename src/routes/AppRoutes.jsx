@@ -1,13 +1,14 @@
-import React from 'react'
+import React from "react";
 
-import {Route, Routes} from 'react-router-dom'
+import { Route, Routes } from "react-router-dom";
 import Fishes from "../pages/fish/Fishes";
-import Antennas from '../pages/antenna/Antennas';
-import Status from '../pages/status/Status';
-import Passes from '../pages/passes/Passes';
+import Antennas from "../pages/antenna/Antennas";
+import Status from "../pages/status/Status";
+import Passes from "../pages/passes/Passes";
 import FishContainer from "../pages/fish/FishContainer";
 import AntennaContainer from '../pages/antenna/AntennaContainer';
 import StatusContainer from '../pages/status/StatusContainer';
+import PassContainer from "../pages/passes/PassContainer";
 
 const AppRoutes = () => {
 
@@ -21,6 +22,7 @@ const AppRoutes = () => {
             <Route path='/edit-fish' element={<FishContainer />} />
             <Route path='/edit-antenna' element={<AntennaContainer />} />
             <Route path='/edit-status' element={<StatusContainer />} />
+            <Route path="/edit-pass" element={<PassContainer />} />
         </Routes >
     )
 

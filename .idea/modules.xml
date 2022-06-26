@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/piracema.iml" filepath="$PROJECT_DIR$/.idea/piracema.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/frontend-bootcamp.iml" filepath="$PROJECT_DIR$/.idea/frontend-bootcamp.iml" />
     </modules>
   </component>
 </project>

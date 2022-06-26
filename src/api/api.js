@@ -66,7 +66,11 @@ export function GetPassesByid(id) {
   return api.get(`passes/id/${id}`);
 }
 
-//STATUS ANTENNA 
+export function NewPass(pass) {
+  return api.post("passes", pass);
+}
+
+//STATUS ANTENNA
 
 export function GetAllStatus() {
   return api.get("status");
