@@ -1,20 +1,19 @@
 import useHookForm from "../../compents/hooks/UseHookForm";
 import {NewStatus} from "../../api/api";
-import {Box, Button, Switch, Typography} from "@mui/material";
+import {Box, Button} from "@mui/material";
 import Form from "../../compents/hook-forms/Form";
 import {ControlledTextField} from "../../compents/hook-forms/TextFieldForm";
-import {useState} from "react";
 import StatusRegistrationSchema from "./StatusRegistrationSchema";
+import {toast} from "react-toastify";
 
 const EditStatus = () => {
 
     const initialValues = {
         observations:"",
-        antennaIdentifier:"",
+        antennaID:"",
         status:"",
         statusChangeDate:"",
     }
-    const [checked, setChecked] = useState(false);
 
     const FORM_ID = "NewStatus";
 
@@ -25,17 +24,17 @@ const EditStatus = () => {
 
 
     const handleSubmit = async (formValues) => {
-        try {
             console.log(formValues);
-             await NewStatus(formValues).then(response => console.log(response.data)).catch(error => console.log(error));
-            //toast.success("Status de antena cadastrado com sucesso");
-            console.log("Ok")
-            methods.reset();
-        } catch {
-           // toast.error("Falha ao cadastrar status de antena");
-            console.log("Erro")
-            methods.reset();
-        }
+             await NewStatus(formValues)
+                 .then(response => {
+                     console.log(response.data);
+                     toast.success("Status cadastrado com sucesso");
+                        methods.reset();
+                 }).catch(error => {
+                     console.log(error);
+                        toast.error("Falha ao cadastrar status");
+                        methods.reset();
+                 });
     };
 
     return (
@@ -49,7 +48,7 @@ const EditStatus = () => {
                         sx={{width: "48%", margin:'5px'}}
                     />
                     <ControlledTextField
-                        name="antennaIdentifier"
+                        name="antennaID"
                         control={methods.control}
                         label="Id da antena"
                         sx={{width: "48%", margin:"5px"}}

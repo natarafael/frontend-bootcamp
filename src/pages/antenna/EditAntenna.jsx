@@ -1,10 +1,10 @@
 import useHookForm from "../../compents/hooks/UseHookForm";
 import {NewAntenna} from "../../api/api";
-import {Box, Button, Switch, Typography} from "@mui/material";
+import {Box, Button} from "@mui/material";
 import Form from "../../compents/hook-forms/Form";
 import {ControlledTextField} from "../../compents/hook-forms/TextFieldForm";
-import {useState} from "react";
 import AntennaRegistrationSchema from "./AntennaRegistrationSchema";
+import {toast} from "react-toastify";
 
 const EditAntenna = () => {
 
@@ -14,7 +14,6 @@ const EditAntenna = () => {
         installationDate:"",
         uninstallDate:"",
     }
-    const [checked, setChecked] = useState(false);
 
     const FORM_ID = "NewAntenna";
 
@@ -25,17 +24,17 @@ const EditAntenna = () => {
 
 
     const handleSubmit = async (formValues) => {
-        try {
-            console.log(formValues);
-             await NewAntenna(formValues).then(response => console.log(response.data)).catch(error => console.log(error));
-            //toast.success("Antena cadastrada com sucesso");
-            console.log("Ok")
-            methods.reset();
-        } catch {
-           // toast.error("Falha ao cadastrar antena");
-            console.log("Erro")
-            methods.reset();
-        }
+        console.log(formValues);
+        await NewAntenna(formValues)
+            .then(response => {
+                console.log(response.data);
+                toast.success("Antena cadastrado com sucesso");
+                methods.reset();
+            }).catch(error => {
+                console.log(error);
+                toast.error("Falha ao cadastrar Antena");
+                methods.reset();
+            });
     };
 
     return (
@@ -60,6 +59,12 @@ const EditAntenna = () => {
                         label="Data de instalação"
                         sx={{width: "48%", margin:"5px"}}
                     />
+                <ControlledTextField
+                    name="uninstallDate"
+                    control={methods.control}
+                    label="Data de desativação"
+                    sx={{width: "48%", margin:"5px"}}
+                />
                     
                 <Box textAlign="center">
                     <Button

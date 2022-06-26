@@ -5,6 +5,7 @@ import Form from "../../compents/hook-forms/Form";
 import {ControlledTextField} from "../../compents/hook-forms/TextFieldForm";
 import {useState} from "react";
 import FishRegistrationSchema from "./FishRegistrationSchema";
+import {toast} from "react-toastify";
 
 const EditFish = () => {
 
@@ -32,17 +33,17 @@ const EditFish = () => {
 
 
     const handleSubmit = async (formValues) => {
-        try {
-            console.log(formValues);
-             await NewFish(formValues).then(response => console.log(response.data)).catch(error => console.log(error));
-            //toast.success("Usuário cadastrado com sucesso");
-            console.log("Ok")
-            methods.reset();
-        } catch {
-           // toast.error("Falha ao cadastrar usuário");
-            console.log("Erro")
-            methods.reset();
-        }
+        console.log(formValues);
+        await NewFish(formValues)
+            .then(response => {
+                console.log(response.data);
+                toast.success("Status cadastrado com sucesso");
+                methods.reset();
+            }).catch(error => {
+                console.log(error);
+                toast.error("Falha ao cadastrar status");
+                methods.reset();
+            });
     };
 
     return (

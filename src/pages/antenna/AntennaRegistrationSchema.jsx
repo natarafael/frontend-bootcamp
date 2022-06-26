@@ -13,7 +13,6 @@ const AntennaRegistrationSchema =
         .date()
         .required('A data de instalação é obriatória'),
     uninstallDate: Yup
-        .date()
-        .required('A data de desativação é obriatória'),
+        .string()
 })
 export default AntennaRegistrationSchema;

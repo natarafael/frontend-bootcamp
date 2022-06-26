@@ -78,7 +78,7 @@ export default function StatusTable() {
     };
     
     const handleNavigate = () => {
-        navigate('/edit-fish');
+        navigate('/edit-status');
     }
 
     return (

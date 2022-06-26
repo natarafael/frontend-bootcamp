@@ -1,7 +1,7 @@
 import React from "react";
 import {Box, Typography} from "@mui/material";
 import EditStatus from "./EditStatus";
-import {IoStatusOutline} from "react-icons/io5";
+import {GrStatusGood} from "react-icons/gr";
 
 const StatusContainer = () => {
     return (
@@ -29,7 +29,7 @@ const StatusContainer = () => {
                     alignItems: 'center',
                 }}>
 
-                    <IoStatusOutline style={{ width: '50px', height: '50px', color: '#036ba2' }} />
+                    <GrStatusGood style={{ width: '50px', height: '50px', color: '#036ba2' }} />
                     <Typography variant="h5" p={4} align="center" color='#036ba2'>
                         Cadastrar Status de Antena
                     </Typography>

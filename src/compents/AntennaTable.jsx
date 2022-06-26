@@ -13,8 +13,8 @@ import {GetAllAntennas} from "../api/api";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
-import {AiOutlinePlus} from "react-icons/ai";
 import {useNavigate} from 'react-router';
+import {AiOutlinePlus} from "react-icons/ai";
 
 const columns = [
     
@@ -84,7 +84,7 @@ export default function AntennaTable() {
     };
 
     const handleNavigate = () => {
-        navigate('/edit-fish');
+        navigate('/edit-antenna');
     }
 
     return (
@@ -106,6 +106,7 @@ export default function AntennaTable() {
                 </Typography>
                 <Tooltip title="Cadastrar Antena">
                         <IconButton onClick={handleNavigate} >
+                            <AiOutlinePlus />
                     </IconButton>
                 </Tooltip>
             </Toolbar>

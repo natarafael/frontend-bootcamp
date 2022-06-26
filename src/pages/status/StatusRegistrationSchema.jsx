@@ -4,7 +4,7 @@ import * as Yup from 'yup';
 const StatusRegistrationSchema =
     Yup.object({
     observations: Yup.string().required('O nome da antena é obrigatório'),
-    antennaIdentifier: Yup
+    antennaID: Yup
         .number()
         .required('O id da antena é obrigatório'),
     status: Yup

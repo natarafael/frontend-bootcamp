@@ -1,7 +1,7 @@
 import React from "react";
 import {Box, Typography} from "@mui/material";
 import EditAntenna from "./EditAntenna";
-import {IoAntennaOutline} from "react-icons/io5";
+import {MdOutlineSettingsInputAntenna} from "react-icons/md";
 
 const AntennaContainer = () => {
     return (
@@ -29,7 +29,7 @@ const AntennaContainer = () => {
                     alignItems: 'center',
                 }}>
 
-                    <IoAntennaOutline style={{ width: '50px', height: '50px', color: '#036ba2' }} />
+                    <MdOutlineSettingsInputAntenna style={{ width: '50px', height: '50px', color: '#036ba2' }} />
                     <Typography variant="h5" p={4} align="center" color='#036ba2'>
                         Cadastrar Antena
                     </Typography>

@@ -48,6 +48,10 @@ export function GetAntennaByid(id) {
   return api.get(`antennas/id/${id}`);
 }
 
+export function NewAntenna(antenna) {
+  return api.post("antennas", antenna);
+}
+
 export function GetAllAntennas() {
   return api.get("antennas");
 }
@@ -70,4 +74,8 @@ export function GetAllStatus() {
 
 export function GetStatusByid(id) {
   return api.get(`status/id/${id}`);
+}
+
+export function NewStatus(status) {
+  return api.post("status", status);
 }
