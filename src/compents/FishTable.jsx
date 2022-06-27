@@ -18,6 +18,10 @@ import { useNavigate } from "react-router";
 import { TableSortLabel } from "@mui/material";
 import { visuallyHidden } from "@mui/utils";
 import SearchFish from "../pages/fish/SearchFish";
+import {MdEditNote} from "react-icons/md";
+import {HiOutlineTrash} from "react-icons/hi";
+import {toast} from 'react-toastify';
+import {deleteFish} from '../api/api'
 
 const columns = [
   { id: "id", label: "Id", minWidth: 50, align: "right" },
@@ -139,6 +143,7 @@ export default function FishTable() {
   const [loading, setLoading] = useState(false);
   const [order, setOrder] = useState("desc");
   const [orderBy, setOrderBy] = useState("id");
+  const [deleteChange, setDeleteChange] = useState(false);
   const navigate = useNavigate();
 
   const handleRequestSort = (event, property) => {
@@ -162,7 +167,7 @@ export default function FishTable() {
 
   useEffect(() => {
     fetchFishes();
-  }, []);
+  }, [deleteChange]);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -175,6 +180,22 @@ export default function FishTable() {
 
   const handleNavigate = () => {
     navigate("/edit-fish");
+  };
+
+  const handleDelete = async (id) => {
+    await deleteFish(id)
+        .then((response) => {
+          toast.success("Peixe deletado com sucesso");
+          setDeleteChange(!deleteChange);
+        })
+        .catch((error) => {
+          toast.error("Erro ao deletar peixe");
+          console.log(error)
+        })
+  }
+
+  const handleEdit = (id) => {
+    navigate("edit-fish", {state: {id}});
   };
 
   return (
@@ -239,6 +260,18 @@ export default function FishTable() {
                           </TableCell>
                         );
                       })}
+                      <TableCell>
+                        <IconButton
+                            onClick={() => {
+                              handleEdit(fish.id);
+                            }}
+                        >
+                          <MdEditNote color={"#d1bd0a"} />
+                        </IconButton>
+                        <IconButton onClick={() => handleDelete(fish.id)}>
+                          <HiOutlineTrash color={"red"} />
+                        </IconButton>
+                      </TableCell>
                     </TableRow>
                   );
                 })
