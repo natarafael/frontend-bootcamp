@@ -24,7 +24,7 @@ const columns = [
   { id: "pittag", label: "Pittag", minWidth: 100, align: "center" },
   {
     id: "scientificName",
-    label: "Nome Científico",
+    label: "Nome científico",
     minWidth: 100,
     align: "center",
   },
