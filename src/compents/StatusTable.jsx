@@ -34,14 +34,56 @@ const columns = [
     },
     {
         id: 'statusChangeDate',
-        label: 'Data de alteração de status',
+        label: 'Data de mudança de status',
         minWidth: 100,
         align: 'center',
         format: (value) => {
             const date = new Date(value)
             return value? date.toLocaleString('pt-BR') : ''
-        }
+    }
     },
+    {
+        id: 'latitude',
+        label: 'Latitude',
+        minWidth: 100,
+        align: 'center',
+        format: (value) => {
+            const date = new Date(value)
+            return value? date.toLocaleString('pt-BR') : ''
+    }
+    },
+    {
+        id: 'longuitude',
+        label: 'Longuitude',
+        minWidth: 100,
+        align: 'center',
+        format: (value) => {
+            const date = new Date(value)
+            return value? date.toLocaleString('pt-BR') : ''
+    }
+    },
+    {
+        id: 'installationDate',
+        label: 'Data de instalação',
+        minWidth: 100,
+        align: 'center',
+        format: (value) => {
+            const date = new Date(value)
+            return value? date.toLocaleString('pt-BR') : ''
+    }
+    },
+    {
+        id: 'uninstallDate',
+        label: 'Data de desativação',
+        minWidth: 100,
+        align: 'center',
+        format: (value) => {
+            const date = new Date(value)
+            return value? date.toLocaleString('pt-BR') : ''
+    }
+    },
+
+
 ];
 
 export default function StatusTable() {
