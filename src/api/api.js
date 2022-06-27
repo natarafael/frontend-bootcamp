@@ -43,6 +43,14 @@ export function NewFish(fish) {
   return api.post("fishes", fish);
 }
 
+export function deleteFish(id) {
+  return api.delete(`fishes/${id}`);
+}
+
+export function updateFish(id, fish) {
+  return api.put(`fishes/${id}`, fish);
+}
+
 //ANTENA
 export function GetAntennaByid(id) {
   return api.get(`antennas/id/${id}`);
@@ -68,6 +76,10 @@ export function GetPassesByid(id) {
 
 export function NewPass(pass) {
   return api.post("passes", pass);
+}
+
+export function deletePass(id) {
+  return api.delete(`passes/${id}`);
 }
 
 //STATUS ANTENNA
