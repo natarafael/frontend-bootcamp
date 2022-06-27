@@ -19,6 +19,9 @@ import { TableSortLabel } from "@mui/material";
 import { visuallyHidden } from "@mui/utils";
 import {FaFileCsv} from "react-icons/fa";
 import axios from "axios";
+import { deletePass } from "../api/api";
+import { HiOutlineTrash } from "react-icons/hi";
+import { toast } from "react-toastify";
 
 const columns = [
   { id: "id", label: "Id", minWidth: 50, align: "right" },
@@ -116,6 +119,7 @@ export default function PassTable() {
   const [passes, setPasses] = useState([]);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [loading, setLoading] = useState(false);
+  const [deleteChange, setDeleteChange] = useState(false);
   const [order, setOrder] = useState("asc");
   const [orderBy, setOrderBy] = useState("id");
   const [selectedFile, setSelectedFile] = useState(null);
@@ -140,7 +144,7 @@ export default function PassTable() {
 
   useEffect(() => {
     FetchPasses();
-  }, []);
+  }, [deleteChange]);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -174,6 +178,18 @@ export default function PassTable() {
   const handleFileSelect = (event) => {
     setSelectedFile(event.target.files[0])
   }
+
+  const handleDelete = async (id) => {
+    await deletePass(id)
+      .then((response) => {
+        toast.success("Peixe deletado com sucesso!");
+        setDeleteChange(!deleteChange);
+      })
+      .catch((error) => {
+        toast.error("Erro ao deletar peixe!");
+        console.log(error);
+      });
+  };
 
   return (
       <>
@@ -238,6 +254,11 @@ export default function PassTable() {
                           </TableCell>
                         );
                       })}
+                      <TableCell>
+                        <IconButton onClick={() => handleDelete(pass.id)}>
+                          <HiOutlineTrash color={"red"} />
+                        </IconButton>
+                      </TableCell>
                     </TableRow>
                   );
                 })

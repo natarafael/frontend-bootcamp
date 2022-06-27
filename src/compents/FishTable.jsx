@@ -9,7 +9,7 @@ import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import { CircularProgress, Tooltip, Typography } from "@mui/material";
-import { GetAllFishes } from "../api/api";
+import { deleteFish,GetAllFishes } from "../api/api";
 import Box from "@mui/material/Box";
 import { AiOutlinePlus } from "react-icons/ai";
 import IconButton from "@mui/material/IconButton";
@@ -141,6 +141,12 @@ export default function FishTable() {
   const [fishes, setFishes] = useState([]);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const [deleteChange, setDeleteChange] = useState(false);
+  const [page, setPage] = useState(0);
+  const [fishes, setFishes] = useState([]);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [loading, setLoading] = useState(false);
   const [order, setOrder] = useState("desc");
   const [orderBy, setOrderBy] = useState("id");
   const [deleteChange, setDeleteChange] = useState(false);
@@ -184,19 +190,23 @@ export default function FishTable() {
 
   const handleDelete = async (id) => {
     await deleteFish(id)
-        .then((response) => {
-          toast.success("Peixe deletado com sucesso");
-          setDeleteChange(!deleteChange);
-        })
-        .catch((error) => {
-          toast.error("Erro ao deletar peixe");
-          console.log(error)
-        })
-  }
+      .then((response) => {
+        toast.success("Peixe deletado com sucesso!");
+        setDeleteChange(!deleteChange);
+      })
+      .catch((error) => {
+        toast.error("Erro ao deletar peixe!");
+        console.log(error);
+      });
+  };
 
   const handleEdit = (id) => {
-    navigate("edit-fish", {state: {id}});
+    navigate("/edit-fish", { state: { id } });
   };
+
+  useEffect(() => {
+    fetchFishes();
+  }, [deleteChange]);
 
   return (
       <>
