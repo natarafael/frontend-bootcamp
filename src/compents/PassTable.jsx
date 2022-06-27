@@ -135,6 +135,9 @@ export default function PassTable() {
                       sx={{
                         ...(i % 2 === 0 && { backgroundColor: "#caf0f8" }),
                       }}
+                      onClick={() => {
+                        alert("clicou");
+                      }}
                     >
                       {columns.map((column) => {
                         const value = pass[column.id];
