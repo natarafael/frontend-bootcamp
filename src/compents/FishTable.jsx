@@ -17,7 +17,6 @@ import Toolbar from "@mui/material/Toolbar";
 import { useNavigate } from "react-router";
 import { TableSortLabel } from "@mui/material";
 import { visuallyHidden } from "@mui/utils";
-import SearchFish from "./SearchFish";
 
 const columns = [
   { id: "id", label: "Id", minWidth: 50, align: "right" },
