@@ -32,10 +32,8 @@ const EditFish = () => {
   );
 
   const handleSubmit = async (formValues) => {
-    console.log(formValues);
     await NewFish(formValues)
       .then((response) => {
-        console.log(response.data);
         toast.success("Status cadastrado com sucesso");
         methods.reset();
       })

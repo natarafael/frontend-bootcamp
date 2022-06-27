@@ -136,8 +136,6 @@ export default function AntennaTable() {
     }
   };
 
-  console.log(antennas);
-
   useEffect(() => {
     FetchAntennas();
   }, []);

@@ -38,8 +38,12 @@ export function GetAllFishByCaptureLocation(captureLocation) {
 export function GetAllFishByPittag(pittag) {
   return api.get(`fishes/pittags/${pittag}`);
 }
+
+export function GetAllFishesBy(filteredBy, field) {
+  return api.get(`fishes/${filteredBy}/${field}`);
+}
+
 export function NewFish(fish) {
-  console.log(fish);
   return api.post("fishes", fish);
 }
 

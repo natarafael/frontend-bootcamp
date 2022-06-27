@@ -22,10 +22,8 @@ const EditPass = () => {
   );
 
   const handleSubmit = async (formValues) => {
-    console.log(formValues);
     await NewPass(formValues)
       .then((response) => {
-        console.log(response.data);
         toast.success("Passagem cadastrado com sucesso");
         methods.reset();
       })

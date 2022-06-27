@@ -24,10 +24,8 @@ const EditAntenna = () => {
 
 
     const handleSubmit = async (formValues) => {
-        console.log(formValues);
         await NewAntenna(formValues)
             .then(response => {
-                console.log(response.data);
                 toast.success("Antena cadastrado com sucesso");
                 methods.reset();
             }).catch(error => {

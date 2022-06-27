@@ -27,10 +27,8 @@ const EditStatus = () => {
 
 
     const handleSubmit = async (formValues) => {
-            console.log(formValues);
              await NewStatus(formValues)
                  .then(response => {
-                     console.log(response.data);
                      toast.success("Status cadastrado com sucesso");
                         methods.reset();
                  }).catch(error => {

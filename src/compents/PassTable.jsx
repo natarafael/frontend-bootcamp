@@ -8,7 +8,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
-import { CircularProgress, Tooltip, Typography } from "@mui/material";
+import {Button, CircularProgress, styled, Tooltip, Typography} from "@mui/material";
 import { GetAllPasses } from "../api/api";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
@@ -17,6 +17,8 @@ import Toolbar from "@mui/material/Toolbar";
 import { useNavigate } from "react-router";
 import { TableSortLabel } from "@mui/material";
 import { visuallyHidden } from "@mui/utils";
+import {FaFileCsv} from "react-icons/fa";
+import axios from "axios";
 
 const columns = [
   { id: "id", label: "Id", minWidth: 50, align: "right" },
@@ -105,6 +107,10 @@ function TableHeadEnhanced(props) {
   );
 }
 
+const Input = styled('input')({
+  display: 'none',
+});
+
 export default function PassTable() {
   const [page, setPage] = useState(0);
   const [passes, setPasses] = useState([]);
@@ -112,6 +118,7 @@ export default function PassTable() {
   const [loading, setLoading] = useState(false);
   const [order, setOrder] = useState("asc");
   const [orderBy, setOrderBy] = useState("id");
+  const [selectedFile, setSelectedFile] = useState(null);
   const navigate = useNavigate();
 
   const handleRequestSort = (event, property) => {
@@ -131,8 +138,6 @@ export default function PassTable() {
     }
   };
 
-  console.log(passes);
-
   useEffect(() => {
     FetchPasses();
   }, []);
@@ -150,7 +155,28 @@ export default function PassTable() {
     navigate("/edit-pass");
   };
 
+  const handleSubmit = async (event) => {
+    event.preventDefault()
+    const formData = new FormData();
+    formData.append("selectedFile", selectedFile);
+    try {
+      await axios({
+        method: "post",
+        url: "http://localhost:3030/passes/upload",
+        data: formData,
+        headers: {"Content-Type": "multipart/form-data"},
+      });
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const handleFileSelect = (event) => {
+    setSelectedFile(event.target.files[0])
+  }
+
   return (
+      <>
     <Paper sx={{ width: "100%", overflow: "hidden" }}>
       <Toolbar
         sx={{
@@ -229,5 +255,17 @@ export default function PassTable() {
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
     </Paper>
+        <Paper sx={{ width: "100%", overflow: "hidden", marginTop:"20px" }}>
+          <form onSubmit={handleSubmit}>
+          <IconButton size="large">
+            <label htmlFor="contained-button-file">
+              <Input accept="svg/*" id="contained-button-file" multiple type="file" onChange={handleFileSelect} />
+              <FaFileCsv/>
+            </label>
+          </IconButton>
+          <Button type="submit"  variant="outlined">Enviar</Button>
+          </form>
+        </Paper>
+  </>
   );
 }

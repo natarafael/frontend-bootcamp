@@ -17,6 +17,7 @@ import Toolbar from "@mui/material/Toolbar";
 import { useNavigate } from "react-router";
 import { TableSortLabel } from "@mui/material";
 import { visuallyHidden } from "@mui/utils";
+import SearchFish from "../pages/fish/SearchFish";
 
 const columns = [
   { id: "id", label: "Id", minWidth: 50, align: "right" },
@@ -99,7 +100,7 @@ function TableHeadEnhanced(props) {
           <TableCell
             key={column.id}
             align={column.align}
-            padding={column.disablePadding ? "none" : "default"}
+            padding={column.disablePadding ? "none" : "normal"}
             sortDirection={orderBy === column.id ? order : false}
           >
             <Tooltip
@@ -159,8 +160,6 @@ export default function FishTable() {
       });
   };
 
-  console.log(fishes);
-
   useEffect(() => {
     fetchFishes();
   }, []);
@@ -179,6 +178,10 @@ export default function FishTable() {
   };
 
   return (
+      <>
+        <Paper sx={{ width: "100%", overflow: "hidden", marginBottom:"15px" }}   >
+          <SearchFish/>
+        </Paper>
     <Paper sx={{ width: "100%", overflow: "hidden" }}>
       <Toolbar
         sx={{
@@ -191,7 +194,6 @@ export default function FishTable() {
           sx={{ flex: "1 1 100%" }}
           variant="h4"
           id="tableTitle"
-          component="div"
         >
           Peixes Cadastrados
         </Typography>
@@ -254,5 +256,6 @@ export default function FishTable() {
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
     </Paper>
+    </>
   );
 }
