@@ -21,7 +21,6 @@ import SearchFish from "../pages/fish/SearchFish";
 import {MdEditNote} from "react-icons/md";
 import {HiOutlineTrash} from "react-icons/hi";
 import {toast} from 'react-toastify';
-import {deleteFish} from '../api/api'
 
 const columns = [
   { id: "id", label: "Id", minWidth: 50, align: "right" },
@@ -141,12 +140,6 @@ export default function FishTable() {
   const [fishes, setFishes] = useState([]);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
-  const [deleteChange, setDeleteChange] = useState(false);
-  const [page, setPage] = useState(0);
-  const [fishes, setFishes] = useState([]);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
-  const [loading, setLoading] = useState(false);
   const [order, setOrder] = useState("desc");
   const [orderBy, setOrderBy] = useState("id");
   const [deleteChange, setDeleteChange] = useState(false);
@@ -170,10 +163,6 @@ export default function FishTable() {
         console.log(error);
       });
   };
-
-  useEffect(() => {
-    fetchFishes();
-  }, [deleteChange]);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);

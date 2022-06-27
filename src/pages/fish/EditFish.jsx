@@ -51,17 +51,17 @@ const EditFish = () => {
 
   const handleUpdate = async (id, formValues) => {
     console.log(id);
-    // await updateFish(id, formValues)
-    //   .then((response) => {
-    //     console.log(response.data);
-    //     toast.success("Peixe atualizado com sucesso");
-    //     methods.reset();
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //     toast.error("Falha ao atualizar peixe");
-    //     methods.reset();
-    //   });
+    await updateFish(id, formValues)
+      .then((response) => {
+        console.log(response.data);
+        toast.success("Peixe atualizado com sucesso");
+        methods.reset();
+      })
+      .catch((error) => {
+        console.log(error);
+        toast.error("Falha ao atualizar peixe");
+        methods.reset();
+      });
   };
 
   useEffect(() => {
@@ -91,14 +91,15 @@ const EditFish = () => {
       };
       fetchFishById();
     }
-  }, [location.state]);return (
+  }, [location.state]);
+  return (
     <>
       <Box display="flex" flexDirection="row" flexWrap="wrap" width="100%">
         <Form id={FORM_ID} methods={methods} onSubmit={idEdit ? handleUpdate :handleSubmit}
   >        <ControlledTextField
             name="pittag"
             control={methods.control}
-            label="Pittag"disabled={idEdit ? true : false}
+            label="Pittag"disabled={!!idEdit}
             sx={{ width: "48%", margin: "5px" }}
           />
           <ControlledTextField
@@ -178,7 +179,8 @@ const EditFish = () => {
           </Button>
         </Box>
       </Form>
-    </Box>
+      </Box>
+    </>
   );
 };
 export default EditFish;

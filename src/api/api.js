@@ -52,6 +52,8 @@ export function deleteFish(id) {
 }
 
 export function updateFish(id, fish) {
+  console.log(fish)
+  console.log(id)
   return api.put(`fishes/${id}`, fish);
 }
 
