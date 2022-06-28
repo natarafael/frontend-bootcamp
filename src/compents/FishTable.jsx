@@ -8,7 +8,14 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
-import { CircularProgress, Tooltip, Typography } from "@mui/material";
+import {
+  Button,
+  CircularProgress,
+  Dialog, DialogActions,
+  DialogTitle,
+  Tooltip,
+  Typography
+} from "@mui/material";
 import { GetAllFishes } from "../api/api";
 import Box from "@mui/material/Box";
 import { AiOutlinePlus } from "react-icons/ai";
@@ -144,6 +151,7 @@ export default function FishTable() {
   const [order, setOrder] = useState("desc");
   const [orderBy, setOrderBy] = useState("id");
   const [deleteChange, setDeleteChange] = useState(false);
+  const [open, setOpen] = useState(false);
   const navigate = useNavigate();
 
   const handleRequestSort = (event, property) => {
@@ -192,10 +200,19 @@ export default function FishTable() {
           toast.error("Erro ao deletar peixe");
           console.log(error)
         })
+    handleClose();
   }
 
   const handleEdit = (id) => {
     navigate("edit-fish", {state: {id}});
+  };
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
   };
 
   return (
@@ -268,9 +285,26 @@ export default function FishTable() {
                         >
                           <MdEditNote color={"#d1bd0a"} />
                         </IconButton>
-                        <IconButton onClick={() => handleDelete(fish.id)}>
+                        <IconButton onClick={handleClickOpen}>
                           <HiOutlineTrash color={"red"} />
                         </IconButton>
+                        <Dialog
+                            open={open}
+                            onClose={handleClose}
+                            aria-labelledby="alert-dialog-title"
+                            aria-describedby="alert-dialog-description"
+                        >
+                          <DialogTitle id="alert-dialog-title">
+                            Realmente deseja excluir o peixe?
+                          </DialogTitle>
+                          <DialogActions>
+                            <Button onClick={handleClose}>Não</Button>
+
+                            <Button onClick={() => handleDelete(fish.id)} autoFocus>
+                              Sim
+                            </Button>
+                          </DialogActions>
+                        </Dialog>
                       </TableCell>
                     </TableRow>
                   );
