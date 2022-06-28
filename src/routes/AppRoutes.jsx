@@ -9,12 +9,13 @@ import FishContainer from "../pages/fish/FishContainer";
 import AntennaContainer from '../pages/antenna/AntennaContainer';
 import StatusContainer from '../pages/status/StatusContainer';
 import PassContainer from "../pages/passes/PassContainer";
+import HomePage from "../pages/homepage/HomePage";
 
 const AppRoutes = () => {
 
     return (
         <Routes>
-            <Route path='/'/>
+            <Route path='/' element={<HomePage/>} />
             <Route path='/fishes' element={<Fishes />} />
             <Route path='/antennas' element={<Antennas />} />
             <Route path='/status' element={<Status />} />

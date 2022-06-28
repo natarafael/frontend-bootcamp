@@ -6,6 +6,7 @@ import {ControlledTextField} from "../../compents/hook-forms/TextFieldForm";
 import StatusRegistrationSchema from "./StatusRegistrationSchema";
 import {toast} from "react-toastify";
 import {useState} from "react";
+import Flatpickr from "react-flatpickr";
 
 const EditStatus = () => {
 
@@ -17,6 +18,7 @@ const EditStatus = () => {
     }
 
     const [checked, setChecked] = useState(false);
+    const [date, setDate] = useState(new Date("2022-06-28T02:45:00.000"));
 
     const FORM_ID = "NewStatus";
 
@@ -54,13 +56,19 @@ const EditStatus = () => {
                         label="Id da antena"
                         sx={{width: "48%", margin:"5px"}}
                     />
-
-                      <ControlledTextField
-                        name="statusChangeDate"
-                        control={methods.control}
-                        label="Data de alteração do status"
-                        sx={{width: "48%", margin:"5px"}}
-                    />
+                <Typography marginLeft={1}>
+                    Data de mudança do status
+                </Typography>
+                <Flatpickr
+                    data-enable-time
+                    defaultValue={"2022-06-12T00:00:00.000Z"}
+                    value={date}
+                    onChange={() => {
+                        setDate(date)
+                        methods.setValue("statusChangeDate", date);
+                    }}
+                    style={{ width: "46%", margin: "3px", height: "52px", marginTop: "5px", backgroundColor: "#BDE0FE", border: "1px solid #768C9F", borderRadius: "5px", paddingLeft: "15px" }}
+                />
                     <Typography variant="inherit" p={2}>
                         Status da Antena
                         <Switch
