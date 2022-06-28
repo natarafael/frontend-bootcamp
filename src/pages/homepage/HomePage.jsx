@@ -4,6 +4,7 @@ import {Box, Typography} from "@mui/material";
 const HomePage = () => {
 
     return(
+        <>
         <Box display="flex" flexDirection="row" flexWrap="wrap" width="60%"
              height="800px"
              textAlign="center"
@@ -45,8 +46,7 @@ const HomePage = () => {
                 </Typography>
             </Box>
         </Box>
-
-
+        </>
     )
 }
 export  default HomePage;
