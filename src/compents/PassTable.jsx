@@ -19,6 +19,7 @@ import { TableSortLabel } from "@mui/material";
 import { visuallyHidden } from "@mui/utils";
 import {FaFileCsv} from "react-icons/fa";
 import axios from "axios";
+import {toast} from "react-toastify";
 
 const columns = [
   { id: "id", label: "Id", minWidth: 50, align: "right" },
@@ -158,14 +159,23 @@ export default function PassTable() {
   const handleSubmit = async (event) => {
     event.preventDefault()
     const formData = new FormData();
-    formData.append("selectedFile", selectedFile);
+    //formData.append("selectedFile", selectedFile);
+    formData.append("csvFile", selectedFile);
     try {
       await axios({
         method: "post",
         url: "http://localhost:3030/passes/upload",
         data: formData,
         headers: {"Content-Type": "multipart/form-data"},
-      });
+      }).then((response) => {
+        console.log(response);
+        toast.success("Arquivo importado com sucesso!");
+      FetchPasses();
+      }).catch((error) => {
+        console.log(error);
+        toast.error("Erro ao importar arquivo!");
+      }
+        );
     } catch (error) {
       console.log(error)
     }
