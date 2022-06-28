@@ -82,6 +82,10 @@ export function NewPass(pass) {
   return api.post("passes", pass);
 }
 
+export function DeletePassById(id){
+  return api.delete(`passes/${id}`)
+}
+
 //STATUS ANTENNA
 
 export function GetAllStatus() {

@@ -17,7 +17,7 @@ import {
   Tooltip,
   Typography
 } from "@mui/material";
-import { GetAllPasses } from "../api/api";
+import {DeletePassById, GetAllPasses} from "../api/api";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import { AiOutlinePlus } from "react-icons/ai";
@@ -28,6 +28,8 @@ import { visuallyHidden } from "@mui/utils";
 import {FaFileCsv} from "react-icons/fa";
 import axios from "axios";
 import {toast} from "react-toastify";
+import {HiOutlineTrash} from "react-icons/hi";
+import {FiInfo} from "react-icons/fi";
 
 const columns = [
   { id: "id", label: "Id", minWidth: 50, align: "right" },
@@ -130,13 +132,23 @@ export default function PassTable() {
   const [selectedFile, setSelectedFile] = useState(null);
   const navigate = useNavigate();
   const [open, setOpen] = React.useState(false);
+  const [open1, setOpen1] = React.useState(false);
+  const [deleteChange, setDeleteChange] = useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
   };
 
+  const handleClickOpen1 = () => {
+    setOpen1(true);
+  };
+
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const handleClose1 = () => {
+    setOpen1(false);
   };
 
   const handleRequestSort = (event, property) => {
@@ -159,7 +171,7 @@ export default function PassTable() {
 
   useEffect(() => {
     FetchPasses();
-  }, []);
+  }, [deleteChange]);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -201,6 +213,19 @@ export default function PassTable() {
 
   const handleFileSelect = (event) => {
     setSelectedFile(event.target.files[0])
+  }
+
+  const handleDelete = async (id) => {
+    await DeletePassById(id)
+        .then((response) => {
+          toast.success("Peixe deletado com sucesso");
+          setDeleteChange(!deleteChange);
+        })
+        .catch((error) => {
+          toast.error("Erro ao deletar peixe");
+          console.log(error)
+        })
+    handleClose();
   }
 
   return (
@@ -254,11 +279,10 @@ export default function PassTable() {
                       sx={{
                         ...(i % 2 === 0 && { backgroundColor: "#caf0f8" }),
                       }}
-                      onClick={handleClickOpen}
                     >
                       <Dialog
-                          open={open}
-                          onClose={handleClose}
+                          open={open1}
+                          onClose={handleClose1}
                           aria-labelledby="alert-dialog-title"
                           aria-describedby="alert-dialog-description"
                       >
@@ -312,6 +336,31 @@ export default function PassTable() {
                           </TableCell>
                         );
                       })}
+                      <TableCell>
+                        <IconButton onClick={handleClickOpen1}>
+                          <FiInfo />
+                        </IconButton>
+                        <IconButton onClick={handleClickOpen}>
+                          <HiOutlineTrash color={"red"} />
+                        </IconButton>
+                        <Dialog
+                            open={open}
+                            onClose={handleClose}
+                            aria-labelledby="alert-dialog-title"
+                            aria-describedby="alert-dialog-description"
+                        >
+                          <DialogTitle id="alert-dialog-title">
+                            Realmente deseja excluir o peixe?
+                          </DialogTitle>
+                          <DialogActions>
+                            <Button onClick={handleClose}>Não</Button>
+
+                            <Button onClick={() => handleDelete(pass.id)} autoFocus>
+                              Sim
+                            </Button>
+                          </DialogActions>
+                        </Dialog>
+                      </TableCell>
                     </TableRow>
                   );
                 })

@@ -288,6 +288,7 @@ export default function FishTable() {
                         <IconButton onClick={handleClickOpen}>
                           <HiOutlineTrash color={"red"} />
                         </IconButton>
+
                         <Dialog
                             open={open}
                             onClose={handleClose}
