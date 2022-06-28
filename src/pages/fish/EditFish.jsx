@@ -1,11 +1,14 @@
+import React from "react";
 import useHookForm from "../../compents/hooks/UseHookForm";
 import { NewFish } from "../../api/api";
-import { Box, Button, Switch, Typography } from "@mui/material";
+import {Box, Button, Switch, TextField, Typography} from "@mui/material";
 import Form from "../../compents/hook-forms/Form";
 import { ControlledTextField } from "../../compents/hook-forms/TextFieldForm";
 import { useState } from "react";
 import FishRegistrationSchema from "./FishRegistrationSchema";
 import { toast } from "react-toastify";
+import "flatpickr/dist/themes/material_blue.css";
+import Flatpickr from "react-flatpickr";
 
 const EditFish = () => {
   const initialValues = {
@@ -22,6 +25,7 @@ const EditFish = () => {
     recapture: false,
   };
   const [checked, setChecked] = useState(false);
+  const [date, setDate] = React.useState(new Date("2022-06-28T02:45:00.000"));
 
   const FORM_ID = "NewFish";
 
@@ -32,6 +36,7 @@ const EditFish = () => {
   );
 
   const handleSubmit = async (formValues) => {
+    console.log(formValues);
     await NewFish(formValues)
       .then((response) => {
         toast.success("Status cadastrado com sucesso");
@@ -84,12 +89,12 @@ const EditFish = () => {
             label="Peso de soltura (g)"
             sx={{ width: "48%", margin: "5px" }}
           />
-          <ControlledTextField
-            name="releaseDate"
-            control={methods.control}
-            label="Data de soltura"
-            sx={{ width: "48%", margin: "5px" }}
-          />
+          {/*<ControlledTextField*/}
+          {/*  name="releaseDate"*/}
+          {/*  control={methods.control}*/}
+          {/*  label="Data de soltura"*/}
+          {/*  sx={{ width: "48%", margin: "5px" }}*/}
+          {/*/>*/}
           <ControlledTextField
             name="releaseLocation"
             control={methods.control}
@@ -108,6 +113,21 @@ const EditFish = () => {
             label="Código da amostra de DNA"
             sx={{ width: "48%", margin: "5px" }}
           />
+          <Box display="flex" flexDirection="column" flexWrap="wrap" >
+            <Typography marginLeft={1}>
+              Data de soltura
+            </Typography>
+            <Flatpickr
+                data-enable-time
+                defaultValue={"2022-06-12T00:00:00.000Z"}
+                value={date}
+                onChange={() => {
+                  setDate(date)
+                  methods.setValue("releaseDate", date);
+                }}
+                style={{ width: "46%", margin: "3px", height: "52px", marginTop: "5px", backgroundColor: "#BDE0FE", border: "1px solid #768C9F", borderRadius: "5px", paddingLeft: "15px" }}
+            />
+          </Box>
           <Typography variant="inherit" p={2}>
             Recaptura?
             <Switch
