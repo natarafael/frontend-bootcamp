@@ -8,7 +8,15 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
-import {Button, CircularProgress, styled, Tooltip, Typography} from "@mui/material";
+import {
+  Button,
+  CircularProgress, Dialog, DialogActions,
+  DialogContent,
+  DialogTitle,
+  styled,
+  Tooltip,
+  Typography
+} from "@mui/material";
 import { GetAllPasses } from "../api/api";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
@@ -121,6 +129,15 @@ export default function PassTable() {
   const [orderBy, setOrderBy] = useState("id");
   const [selectedFile, setSelectedFile] = useState(null);
   const navigate = useNavigate();
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -237,10 +254,56 @@ export default function PassTable() {
                       sx={{
                         ...(i % 2 === 0 && { backgroundColor: "#caf0f8" }),
                       }}
-                      onClick={() => {
-                        alert("clicou");
-                      }}
+                      onClick={handleClickOpen}
                     >
+                      <Dialog
+                          open={open}
+                          onClose={handleClose}
+                          aria-labelledby="alert-dialog-title"
+                          aria-describedby="alert-dialog-description"
+                      >
+                        <DialogTitle id="alert-dialog-title" >
+                          <Typography p={2} variant="h4">
+                            Detalhes
+                          </Typography>
+                        </DialogTitle>
+                        <DialogContent>
+                          <Box display="flex" flexDirection="column" flexWrap="wrap">
+                            <Typography variant="h6" p={2}>
+                              Pittag: {pass.fish.pittag}
+                            </Typography>
+                            <Typography variant="h6" p={2}>
+                              Nome científico: {pass.fish.scientificName}
+                            </Typography>
+                            <Typography variant="h6" p={2}>
+                              Nome comum: {pass.fish.commonName}
+                            </Typography>
+                            <Typography variant="h6" p={2}>
+                              Comprimento padrão: {pass.fish.standardLength}
+                            </Typography>
+                            <Typography variant="h6" p={2}>
+                              Comprimento total: {pass.fish.totalLength}
+                            </Typography>
+                            <Typography variant="h6" p={2}>
+                              Data de soltura: {pass.fish.releaseDate}
+                            </Typography>
+                            <Typography variant="h6" p={2}>
+                              Local de soltura: {pass.fish.releaseLocation}
+                            </Typography>
+                            <Typography variant="h6" p={2}>
+                              Amostra de DNA: {pass.fish.dnaSample}
+                            </Typography>
+                            <Typography variant="h6" p={2}>
+                              Recaptura: {pass.fish.recapture? "Sim" : "Não"}
+                            </Typography>
+                          </Box>
+                        </DialogContent>
+                        <DialogActions>
+                          <Button onClick={handleClose} autoFocus>
+                            Ok
+                          </Button>
+                        </DialogActions>
+                      </Dialog>
                       {columns.map((column) => {
                         const value = pass[column.id];
                         return (
@@ -280,3 +343,5 @@ export default function PassTable() {
   </>
   );
 }
+
+
