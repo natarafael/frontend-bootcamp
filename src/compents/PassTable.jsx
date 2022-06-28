@@ -133,6 +133,7 @@ export default function PassTable() {
     try {
       var responsePasses = await GetAllPasses();
       setPasses(responsePasses.data);
+      console.log(responsePasses.data);
       setLoading(false);
     } catch {
       console.log("erro ao buscar dados");
@@ -270,7 +271,7 @@ export default function PassTable() {
           <IconButton size="large">
             <label htmlFor="contained-button-file">
               <Input accept="svg/*" id="contained-button-file" multiple type="file" onChange={handleFileSelect} />
-              <FaFileCsv/>
+              <FaFileCsv color={selectedFile? "green" : ''}/>
             </label>
           </IconButton>
           <Button type="submit"  variant="outlined">Enviar</Button>

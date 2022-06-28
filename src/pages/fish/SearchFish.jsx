@@ -12,6 +12,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 import TableBody from "@mui/material/TableBody";
+import {toast} from "react-toastify";
 
 
 const columns = [
@@ -153,6 +154,8 @@ const SearchFish = () => {
         }
         ).catch((error) => {
             console.log(error);
+            setFilteredFishes([]);
+            toast.error("não foi possível realizar a busca");
             methods.reset();
         }
         );
