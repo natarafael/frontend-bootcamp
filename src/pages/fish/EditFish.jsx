@@ -69,7 +69,7 @@ const EditFish = () => {
           <ControlledTextField
             name="totalLength"
             control={methods.control}
-            label="Comprimento Total"
+            label="Comprimento Total (cm)"
             sx={{ width: "48%", margin: "5px" }}
           />
           <ControlledTextField
@@ -81,7 +81,7 @@ const EditFish = () => {
           <ControlledTextField
             name="releaseWeight"
             control={methods.control}
-            label="Peso de soltura"
+            label="Peso de soltura (g)"
             sx={{ width: "48%", margin: "5px" }}
           />
           <ControlledTextField
@@ -99,7 +99,7 @@ const EditFish = () => {
           <ControlledTextField
             name="standardLength"
             control={methods.control}
-            label="Comprimento Padrão"
+            label="Comprimento Padrão (cm)"
             sx={{ width: "48%", margin: "5px" }}
           />
           <ControlledTextField
